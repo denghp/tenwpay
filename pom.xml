@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.tenpay</groupId>
+  <artifactId>tenwpay</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <appname>tenwpay</appname>
+    <jetty.port>9090</jetty.port>
+    <jetty.stopPort>8888</jetty.stopPort>
+    <slf4j.version>1.7.5</slf4j.version>
+    <logback.version>1.1.2</logback.version>
+    <jackson.version>2.4.3</jackson.version>
+    <aspectj.version>1.7.3</aspectj.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.sonar</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>4.1.2</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>8.0.0.M2</version>
+        <configuration>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+          <connectors>
+            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+              <port>${jetty.port}</port>
+              <maxIdleTime>60000</maxIdleTime>
+            </connector>
+          </connectors>
+          <webAppConfig>
+            <contextPath>/${appname}</contextPath>
+          </webAppConfig>
+          <stopPort>${jetty.stopPort}</stopPort>
+          <stopKey>jetty</stopKey>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <escapeString>\</escapeString>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.16</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.1.1</version>
+        <configuration>
+          <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+          <warName>${appname}</warName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>annotations-api</artifactId>
+          <version>6.0.43</version>
+      </dependency>
+      <dependency>
+          <groupId>commons-httpclient</groupId>
+          <artifactId>commons-httpclient</artifactId>
+          <version>3.1</version>
+      </dependency>
+
+      <dependency>
+          <groupId>jaxen</groupId>
+          <artifactId>jaxen</artifactId>
+          <version>1.1.6</version>
+      </dependency>
+
+      <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <version>1.2</version>
+      </dependency>
+
+      <dependency>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+          <version>1.10</version>
+      </dependency>
+
+      <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+  </dependencies>
+</project>
